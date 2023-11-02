@@ -19,7 +19,7 @@ export const authController = {
       return res.status(500).json({
         status: 'Error',
         message: 'User not created',
-        data: error,
+        data: [error.message],
       });
     }
   },
@@ -41,7 +41,7 @@ export const authController = {
       return res.status(404).json({
         status: 'Error',
         message: 'User not logged',
-        data: error,
+        data: [error.message],
       });
     }
   },
@@ -66,7 +66,7 @@ export const authController = {
       return res.status(400).json({
         status: 'Error',
         message: 'User not found',
-        data: error,
+        data: [error.message],
       });
     }
   },

@@ -18,4 +18,6 @@ dotenv.config({
 });
 
 entorno.PORT = process.env.PORT;
+entorno.API_URL = process.env.API_URL;
+entorno.CLIENT_URL = process.env.CLIENT_URL;
 entorno.MONGO_URL = process.env.MONGO_URL;

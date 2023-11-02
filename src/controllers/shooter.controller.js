@@ -16,7 +16,7 @@ export const shooterController = {
       return res.status(400).json({
         status: 'Error',
         message: 'Shooters not found',
-        data: error,
+        data: [error.message],
       });
     }
   },
@@ -37,7 +37,7 @@ export const shooterController = {
       return res.status(400).json({
         status: 'Error',
         message: 'Shooter not found',
-        data: error,
+        data: [error.message],
       });
     }
   },
@@ -58,7 +58,7 @@ export const shooterController = {
       return res.status(500).json({
         status: 'Error',
         message: 'Shooter not created',
-        data: error,
+        data: [error.message],
       });
     }
   },
@@ -75,7 +75,7 @@ export const shooterController = {
       return res.status(500).json({
         status: 'Error',
         message: 'Shooter not deleted',
-        data: error,
+        data: [error.message],
       });
     }
   },
@@ -97,7 +97,7 @@ export const shooterController = {
       return res.status(500).json({
         status: 'Error',
         message: 'Shooter not updated',
-        data: error,
+        data: [error.message],
       });
     }
   },

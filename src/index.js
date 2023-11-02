@@ -6,4 +6,4 @@ connectMongo();
 
 app.listen(entorno.PORT);
 
-console.log(`server on port ${entorno.PORT}`);
+console.log(`http://localhost:${entorno.PORT}`);

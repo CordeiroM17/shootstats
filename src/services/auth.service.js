@@ -3,6 +3,12 @@ import { createHash, isValidPassword } from '../utils/bcrypt.js';
 
 class AuthService {
   async registerUser(username, email, password) {
+    const userFound = await UserModel.findOne({ email });
+
+    if (userFound) {
+      throw new Error('The email already exists');
+    }
+
     const userSaved = await UserModel.create({ username, email, password: createHash(password) });
 
     return userSaved;
@@ -14,7 +20,7 @@ class AuthService {
     if (userFound && isValidPassword(password, userFound.password)) {
       return userFound;
     } else {
-      throw new Error('User not logged');
+      throw new Error('Check the email or password');
     }
   }
 
