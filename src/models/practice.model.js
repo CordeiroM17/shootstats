@@ -1,7 +1,10 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 
 const schema = new Schema(
   {
+    shooterId: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
     rounds: {
       type: Number,
       min: 1,
@@ -13,6 +16,9 @@ const schema = new Schema(
       min: 1,
       max: 20,
       required: true,
+    },
+    shoots: {
+      type: [],
     },
   },
   {

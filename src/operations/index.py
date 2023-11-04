@@ -1,14 +1,5 @@
-import argparse
-import json
+import sys
 
-objeto = {
-    "nombre": 'John Doe',
-    "edad": 30,
-    "ocupacion": 'Desarrollador'
-  }
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--objeto', required=True, help='Objeto serializado como JSON')
-args = parser.parse_args()
-args = str(args)
-print(args[19:-2])
+# Obtenemos el argumento pasado desde Node.js
+argumento_json = sys.argv[1]
+print(argumento_json)

@@ -1,10 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import { AuthProvider } from './context/AuthContext';
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
 import ShootersPage from './pages/ShootersPage';
+import ProtectedRoute from './ProtectedRoute';
 
 const App = () => {
   return (
@@ -14,8 +16,11 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/shooters" element={<ShootersPage />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/shooters" element={<ShootersPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -1,5 +1,7 @@
 import { authService } from '../services/auth.service.js';
 import { createAccessToken } from '../utils/jwt.js';
+import jwt from 'jsonwebtoken';
+import { TOKEN_SECRET } from '../utils/config.js';
 
 export const authController = {
   register: async function (req, res) {
@@ -31,6 +33,7 @@ export const authController = {
 
       const token = await createAccessToken({ id: user._id });
       res.cookie('token', token);
+      console.log(res.cookie)
 
       return res.status(200).json({
         status: 'Success',
@@ -69,5 +72,43 @@ export const authController = {
         data: [error.message],
       });
     }
+  },
+
+  verifyToken: async function (req, res) {
+    const { token } = req.cookies;
+
+    if (!token) {
+      return res.status(401).json({
+        status: 'Error',
+        message: 'Unauthorized',
+        data: {},
+      });
+    }
+
+    jwt.verify(token, TOKEN_SECRET, async (err, user) => {
+      if (err) {
+        return res.status(401).json({
+          status: 'Error',
+          message: 'Unauthorized',
+          data: {},
+        });
+      }
+
+      const userFound = await authService.findUserById(user.id);
+
+      if (!userFound) {
+        return res.status(401).json({
+          status: 'Error',
+          message: 'Unauthorized',
+          data: {},
+        });
+      }
+
+      return res.json({
+        id: userFound._id,
+        username: userFound.username,
+        email: userFound.email,
+      });
+    });
   },
 };

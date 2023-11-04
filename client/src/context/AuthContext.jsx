@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { loginRequest, registerRequest } from '../api/auth';
+import { loginRequest, registerRequest, verifyTokenRequest } from '../api/auth';
 import PropTypes from 'prop-types';
+import Cookies from 'js-cookie';
 
 export const AuthContext = createContext();
 
@@ -17,6 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const signUp = async (userData) => {
     try {
@@ -34,8 +36,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await loginRequest(userData);
       console.log(res);
+      setIsAuthenticated(true);
+      setUser(res.data.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       const errorThrow = error.response.data.data;
       setErrors(errorThrow);
     }
@@ -51,7 +55,40 @@ export const AuthProvider = ({ children }) => {
     }
   }, [errors]);
 
-  return <AuthContext.Provider value={{ signUp, signIn, user, isAuthenticated, errors }}>{children}</AuthContext.Provider>;
+  useEffect(() => {
+    async function checkLogin() {
+      const cookies = Cookies.get();
+      console.log(cookies)
+
+      if (!cookies.token) {
+        setIsAuthenticated(false);
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const res = await verifyTokenRequest(cookies.token);
+        console.log(res);
+        if (!res.data) {
+          setIsAuthenticated(false);
+          setLoading(false);
+          return;
+        } else {
+          setIsAuthenticated(true);
+          setUser(res.data);
+          setLoading(false);
+        }
+      } catch (error) {
+        setIsAuthenticated(false);
+        setUser(null);
+        setLoading(false);
+      }
+    }
+    checkLogin();
+  }, []);
+
+  return <AuthContext.Provider value={{ signUp, signIn, loading, user, isAuthenticated, errors }}>{children}</AuthContext.Provider>;
 };
 
 AuthProvider.propTypes = {

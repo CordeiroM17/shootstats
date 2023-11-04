@@ -15,7 +15,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/login');
+      navigate('/login' );
     }
   }, [isAuthenticated]);
 
