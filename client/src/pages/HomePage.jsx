@@ -1,21 +1,11 @@
-/* import LoginForm from "../components/LoginForm" */
-import LoginForm from "../components/LoginForm"
-import RegisterPage from "../components/RegisterForm"
-
 const HomePage = () => {
   return (
     <main>
-        <section className="container" id="container">
-
-                <RegisterPage />
-
-
-            <div className="form-container sign-in-container">
-                <LoginForm />
-            </div>
-        </section>
+      <section className="container">
+        <h1>Home</h1>
+      </section>
     </main>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
