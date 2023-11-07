@@ -2,6 +2,7 @@ import { authService } from '../services/auth.service.js';
 import { createAccessToken } from '../utils/jwt.js';
 import jwt from 'jsonwebtoken';
 import { TOKEN_SECRET } from '../utils/config.js';
+import { entorno } from '../utils/enviroment.js';
 
 export const authController = {
   register: async function (req, res) {
@@ -32,8 +33,10 @@ export const authController = {
       const user = await authService.loginUser(email, password);
 
       const token = await createAccessToken({ id: user._id });
-      res.cookie('token', token);
-      console.log(res.cookie)
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: true,
+      }); // duda
 
       return res.status(200).json({
         status: 'Success',

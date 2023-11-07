@@ -22,6 +22,6 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
 app.use('/api/shooter', shooterRouter);
-app.use('/api/practice', practiceRouter)
+app.use('/api/practice', practiceRouter);
 
 export default app;
