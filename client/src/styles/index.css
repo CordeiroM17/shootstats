@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @import url('sections/login-register.css');
+@import url('sections/dashoard.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --linear-grad: linear-gradient(to right, #141e30, #243b55);
@@ -16,9 +21,8 @@
 }
 
 body {
-  max-width: 1280px;
   margin: 0 auto;
-  background: #f6f5f7;
+  height: 100%;
 }
 
 main {

@@ -14,4 +14,4 @@ authRouter.post('/logout', authController.logout);
 
 authRouter.get('/profile', authRequired, authController.profile);
 
-authRouter.get('/verifyToken', authController.verifyToken)
+authRouter.get('/verifyToken', authController.verifyToken);

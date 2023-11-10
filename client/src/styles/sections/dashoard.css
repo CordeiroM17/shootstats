@@ -1,0 +1,52 @@
+:root {
+    --primary-100:#141e30;
+    --primary-200:#243b55;
+    --primary-300:#36577d;
+    --accent-100:#FFFFFF;
+    /* --accent-200:#FFFFFF; */
+    --text-100:#FFFFFF;
+    --text-200:#C5C5C5;
+    --bg-100:#FFFFFF;
+    /* --bg-200:#FFFFFF;
+    --bg-300:#FFFFFF; */
+    --rounded-lg: 0.5rem;
+}
+
+aside {
+    color: var(--text-200);
+    background-color: var(--primary-100);
+    top: 0;
+    padding: 1rem;
+}
+
+.inactiveLink {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    align-items: center;
+    color: var(--text-200);
+}
+
+.activeLink {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    align-items: center;
+    color: var(--text-100)
+}
+
+.inactiveIcon {
+    height: 2rem; width: 2rem;
+    padding: 0.25rem;
+    background-color: var(--primary-200);
+    border-radius: var(--rounded-lg);
+    color: var(--text-100);
+}
+
+.activeIcon {
+    height: 2rem; width: 2rem;
+    padding: 0.25rem;
+    border-radius: var(--rounded-lg);
+    background-color: var(--bg-100);
+    color: var(--primary-100);
+}

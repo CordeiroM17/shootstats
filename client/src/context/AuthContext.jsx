@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data);
       setIsAuthenticated(true);
     } catch (error) {
-      // console.log(error)
+      console.log(error);
       const errorThrow = error.response.data.data;
       setErrors(errorThrow);
     }
@@ -35,11 +35,11 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (userData) => {
     try {
       const res = await loginRequest(userData);
-      console.log(res.headers);
+      console.log(res);
       setIsAuthenticated(true);
       setUser(res.data.data);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       const errorThrow = error.response.data.data;
       setErrors(errorThrow);
     }
@@ -58,28 +58,28 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     async function checkLogin() {
       const cookies = Cookies.get();
-      console.log(cookies);
 
       if (!cookies.token) {
         setIsAuthenticated(false);
-        setUser(null);
         setLoading(false);
-        return;
+        return setUser(null);
       }
 
       try {
         const res = await verifyTokenRequest(cookies.token);
-        console.log(res);
-        if (!res.data) {
+
+        if (!res.data.data) {
           setIsAuthenticated(false);
+          setUser(null);
           setLoading(false);
           return;
-        } else {
-          setIsAuthenticated(true);
-          setUser(res.data);
-          setLoading(false);
         }
+
+        setIsAuthenticated(true);
+        setUser(res.data.data);
+        setLoading(false);
       } catch (error) {
+        console.log(error);
         setIsAuthenticated(false);
         setUser(null);
         setLoading(false);

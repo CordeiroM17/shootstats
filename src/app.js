@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
-app.use('/api/shooter', shooterRouter);
-app.use('/api/practice', practiceRouter);
+app.use('/api/shooters', shooterRouter);
+app.use('/api/practices', practiceRouter);
 
 export default app;

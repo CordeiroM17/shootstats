@@ -1,6 +1,10 @@
+import Layout from "../components/Layout"
+
 const ShootersPage = () => {
   return (
-    <div>ShootersPage</div>
+    <Layout>
+      Shooter Section
+    </Layout>
   )
 }
 

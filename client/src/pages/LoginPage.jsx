@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const LoginPage = () => {
@@ -10,11 +10,13 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate()
 
   const { signIn, errors: loginErrors } = useAuth();
 
   const loginSubmit = handleSubmit((data) => {
     signIn(data);
+    navigate('/dashboard')
   });
 
   useEffect(() => {
@@ -71,7 +73,7 @@ const LoginPage = () => {
           <a href="#" className="forgot">
             Forgot your password?
           </a>
-          <button className="btn-form" type="submit">
+          <button className="btn-form bg-primary" type="submit">
             Sign In
           </button>
         </form>

@@ -7,6 +7,8 @@ import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
 import ShootersPage from './pages/ShootersPage';
 import ProtectedRoute from './ProtectedRoute';
+import SettingsPage from './pages/SettingsPage';
+import PracticePage from './pages/PracticePage';
 
 const App = () => {
   return (
@@ -20,6 +22,8 @@ const App = () => {
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/shooters" element={<ShootersPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/practices" element={<PracticePage />} />
           </Route>
         </Routes>
       </BrowserRouter>

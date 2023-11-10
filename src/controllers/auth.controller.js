@@ -10,8 +10,8 @@ export const authController = {
       const { username, email, password } = req.body;
       const user = await authService.registerUser(username, email, password);
 
-      const token = await createAccessToken({ id: user._id });
-      res.cookie('token', token);
+      /* const token = await createAccessToken({ id: user._id });
+      res.cookie('token', token); */
 
       return res.status(201).json({
         status: 'Success',
@@ -33,10 +33,7 @@ export const authController = {
       const user = await authService.loginUser(email, password);
 
       const token = await createAccessToken({ id: user._id });
-      res.cookie('token', token, {
-        httpOnly: true,
-        secure: true,
-      }); // duda
+      res.cookie('token', token); // duda
 
       return res.status(200).json({
         status: 'Success',
@@ -79,6 +76,7 @@ export const authController = {
 
   verifyToken: async function (req, res) {
     const { token } = req.cookies;
+    // pasar a trycatch y al service
 
     if (!token) {
       return res.status(401).json({
@@ -88,8 +86,8 @@ export const authController = {
       });
     }
 
-    jwt.verify(token, TOKEN_SECRET, async (err, user) => {
-      if (err) {
+    jwt.verify(token, TOKEN_SECRET, async (error, user) => {
+      if (error) {
         return res.status(401).json({
           status: 'Error',
           message: 'Unauthorized',
@@ -107,10 +105,14 @@ export const authController = {
         });
       }
 
-      return res.json({
-        id: userFound._id,
-        username: userFound.username,
-        email: userFound.email,
+      return res.status(200).json({
+        status: 'Success',
+        message: 'User data found',
+        data: {
+          id: userFound._id,
+          username: userFound.username,
+          email: userFound.email,
+        },
       });
     });
   },
