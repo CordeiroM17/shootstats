@@ -76,7 +76,7 @@ export const authController = {
 
   verifyToken: async function (req, res) {
     const { token } = req.cookies;
-    // pasar a trycatch y al service
+    // Move trycatch to the service
 
     if (!token) {
       return res.status(401).json({
