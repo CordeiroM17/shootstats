@@ -15,7 +15,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      // Hacer que se pueda volver, como en ProtectedRoute que usa replace
+      // Make it returnable, as in ProtectedRoute which uses replace
       navigate('/login');
     }
   }, [isAuthenticated]);

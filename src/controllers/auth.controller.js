@@ -33,7 +33,7 @@ export const authController = {
       const user = await authService.loginUser(email, password);
 
       const token = await createAccessToken({ id: user._id });
-      res.cookie('token', token); // duda
+      res.cookie('token', token);
 
       return res.status(200).json({
         status: 'Success',
