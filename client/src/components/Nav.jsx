@@ -2,15 +2,18 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
+import { useAuth } from '../context/AuthContext';
 
 const Nav = ({ show }) => {
   let location = useLocation();
   const [pathname, setPathname] = useState('/dashboard');
+  const { logout } = useAuth();
 
   useEffect(() => {
     setPathname(location.pathname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <aside className={(show ? 'left-0' : '-left-full') + ' fixed w-full h-full md:static md:w-auto transition-all'}>
       {/* Cambiar por otra cosa */}
@@ -58,7 +61,13 @@ const Nav = ({ show }) => {
           </svg>
           Settings
         </Link>
-        <Link className={'inactiveLink justify-self-end'}>
+        <Link
+          to={'/login'}
+          onClick={() => {
+            logout();
+          }}
+          className={'inactiveLink justify-self-end'}
+        >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={'inactiveIcon'}>
             <path
               strokeLinecap="round"

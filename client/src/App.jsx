@@ -9,24 +9,29 @@ import ShootersPage from './pages/ShootersPage';
 import ProtectedRoute from './ProtectedRoute';
 import SettingsPage from './pages/SettingsPage';
 import PracticePage from './pages/PracticePage';
+import ShootersNewPage from './pages/ShootersNewPage';
+import { ShootersProvider } from './context/ShootersContext';
 
 const App = () => {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+      <ShootersProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/shooters" element={<ShootersPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/practices" element={<PracticePage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+            <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/shooters" element={<ShootersPage />} />
+              <Route path="/shooters/new" element={<ShootersNewPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/practices" element={<PracticePage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ShootersProvider>
     </AuthProvider>
   );
 };

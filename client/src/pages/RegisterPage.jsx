@@ -33,8 +33,8 @@ const RegisterPage = () => {
     );
   });
 
-  const registerSubmit = handleSubmit(async (values) => {
-    signUp(values);
+  const registerSubmit = handleSubmit(async (data) => {
+    signUp(data);
   });
 
   return (

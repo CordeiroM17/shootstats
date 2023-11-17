@@ -94,8 +94,8 @@ a.forgot {
 .btn-form {
   width: 100%;
   border-radius: 20px;
-  border: 1px solid var(--grad-clr1);
-  background: var(--grad-clr2);
+  border: 1px solid var(--primary-300);
+  background: var(--primary-100);
   color: #fff;
   font-size: 12px;
   font-weight: bold;
@@ -109,7 +109,7 @@ a.forgot {
 
 .btn-form:hover {
   background: #fff;
-  color: var(--grad-clr1);
+  color: var(--primary-300);
 }
 
 p {
@@ -122,7 +122,7 @@ p {
 
 .panel {
   width: 50%;
-  background-color: var(--grad-clr1);
+  background-color: var(--primary-300);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,7 +140,7 @@ p {
 .btn-panel {
   border-radius: 20px;
   border: 1px solid #fff;
-  background-color: var(--grad-clr1);
+  background-color: var(--primary-300);
   color: #fff;
   font-size: 12px;
   font-weight: bold;
@@ -152,7 +152,7 @@ p {
 }
 
 .btn-panel:hover {
-  background-color: var(--grad-clr2);
+  background-color: var(--primary-100);
 }
 
 @media screen and (max-width: 850px) {

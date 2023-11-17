@@ -10,14 +10,21 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate()
 
-  const { signIn, errors: loginErrors } = useAuth();
+  const navigate = useNavigate();
+
+  const { signIn, errors: loginErrors, isAuthenticated } = useAuth();
 
   const loginSubmit = handleSubmit((data) => {
     signIn(data);
-    navigate('/dashboard')
   });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
 
   useEffect(() => {
     loginErrors.map((error) =>
