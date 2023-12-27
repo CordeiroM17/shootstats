@@ -8,6 +8,13 @@
   overflow: hidden;
 }
 
+.login-container form h1, .register-container form h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--primary-300);
+  text-align: center;
+}
+
 form {
   height: 100%;
   width: 60%;
@@ -41,6 +48,9 @@ span {
   width: 100%;
   position: relative;
   margin: 8px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 }
 
 .infield input {
@@ -49,6 +59,7 @@ span {
   background-color: #f3f3f3;
   border: none;
   outline: none;
+  align-self: flex-end;
 }
 
 .infield p {

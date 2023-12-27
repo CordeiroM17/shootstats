@@ -22,9 +22,7 @@ export const AuthProvider = ({ children }) => {
 
   const signUp = async (userData) => {
     try {
-      const res = await registerRequest(userData);
-      setUser(res.data);
-      setIsAuthenticated(true);
+      await registerRequest(userData);
     } catch (error) {
       console.log(error);
       const errorThrow = error.response.data.data;
@@ -46,10 +44,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await logoutRequest()
+    await logoutRequest();
     setIsAuthenticated(false);
-    setUser(null)
-  }
+    setUser(null);
+  };
 
   // Delete errors after 5 seconds
   useEffect(() => {

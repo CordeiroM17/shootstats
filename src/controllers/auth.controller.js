@@ -2,16 +2,12 @@ import { authService } from '../services/auth.service.js';
 import { createAccessToken } from '../utils/jwt.js';
 import jwt from 'jsonwebtoken';
 import { TOKEN_SECRET } from '../utils/config.js';
-import { entorno } from '../utils/enviroment.js';
 
 export const authController = {
   register: async function (req, res) {
     try {
       const { username, email, password } = req.body;
       const user = await authService.registerUser(username, email, password);
-
-      /* const token = await createAccessToken({ id: user._id });
-      res.cookie('token', token); */
 
       return res.status(201).json({
         status: 'Success',

@@ -16,7 +16,7 @@ const schema = new Schema(
     },
     age: {
       type: Number,
-      min: 18,
+      min: 10,
       max: 120,
       required: true,
     },

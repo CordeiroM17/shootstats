@@ -6,7 +6,7 @@ table {
 }
 
 thead {
-    background-color: var(--grad-clr1);
+    background-color: var(--primary-100); /* Hacerlo mas claro */
     color: white;
 }
 
@@ -16,5 +16,5 @@ th, td {
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: var(--primary-100);
 }

@@ -37,15 +37,6 @@ class PracticeService {
 
     await ShooterModel.findByIdAndUpdate({ _id: shooterId }, { $push: { practices: practiceCreated._id } });
 
-    exec(`py src/operations/index.py ${JSON.stringify(practiceCreated)}`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error al ejecutar el script: ${error}`);
-        return;
-      }
-      console.log(`Salida del script: ${stdout}`);
-      console.error(`Errores del script: ${stderr}`);
-    });
-
     return practiceCreated;
   }
 }
