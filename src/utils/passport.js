@@ -1,0 +1,124 @@
+import passport from 'passport';
+import local from 'passport-local';
+import { authService } from '../services/auth.service.js';
+const LocalStrategy = local.Strategy;
+
+export function iniPassport() {
+  passport.use(
+    'login',
+    new LocalStrategy({ usernameField: 'email' }, async (username, password, done) => {
+      try {
+        const user = await authService.findUserToLogin(username, password);
+
+        if (!user) {
+          console.log('Check the email or password');
+          return done(null, false);
+        }
+
+        return done(null, user);
+      } catch (err) {
+        return done(err);
+      }
+    })
+  );
+
+  passport.use(
+    'register',
+    new LocalStrategy(
+      {
+        passReqToCallback: true,
+        usernameField: 'email',
+      },
+      async (req, username, password, done) => {
+        try {
+          const { username: nickname } = req.body;
+
+          let user = await authService.findUserByEmail(username);
+
+          if (user) {
+            console.log('User already exists');
+            return done(null, false);
+          }
+
+          const newUser = {
+            username: nickname,
+            email: username,
+            password,
+          };
+
+          let userCreated = await authService.registerNewUser(newUser);
+
+          console.log('User Registration successful');
+          return done(null, userCreated);
+        } catch (e) {
+          console.log('Error in register');
+          console.log(e);
+          return done(e);
+        }
+      }
+    )
+  );
+
+  /* passport.use(
+    'github',
+    new GitHubStrategy(
+      {
+        clientID: entorno.GITHUB_PASSPORT_CLIENT_ID,
+        clientSecret: entorno.GITHUB_PASSPORT_CLIENT_SECRET,
+        callbackURL: entorno.GITHUB_PASSPORT_CALLBACK_URL,
+      },
+      async (accesToken, _, profile, done) => {
+        try {
+          const res = await fetch('https://api.github.com/user/emails', {
+            headers: {
+              Accept: 'application/vnd.github+json',
+              Authorization: 'Bearer ' + accesToken,
+              'X-Github-Api-Version': '2022-11-28',
+            },
+          });
+          const emails = await res.json();
+          const emailDetail = emails.find((email) => email.verified == true);
+
+          if (!emailDetail) {
+            return done(new Error('cannot get a valid email for this user'));
+          }
+          profile.email = emailDetail.email;
+
+          let user = await authService.findUserByEmail(profile.email);
+          if (!user) {
+            const passwordRandom = crypto.randomBytes(32).toString('hex');
+
+            const newUser = {
+              email: profile.email,
+              password: passwordRandom,
+              firstName: profile._json.name || profile._json.login || 'noname',
+              lastName: 'nolast',
+              age: profile.age || 18,
+            };
+
+            let userCreated = await authService.registerNewUser(newUser);
+            logger.info('User Registration succesfull');
+            return done(null, userCreated);
+          } else {
+            logger.info('User already exists');
+            await authService.lastLoggedIn(user);
+            return done(null, user);
+          }
+        } catch (e) {
+          logger.error('Error en auth github');
+          logger.error(e);
+          return done(e);
+        }
+      }
+    )
+  ); */
+
+  passport.serializeUser((user, done) => {
+    done(null, user._id);
+  });
+
+  passport.deserializeUser(async (id, done) => {
+    let user = await authService.findUserById(id);
+    done(null, user);
+  });
+}

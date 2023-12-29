@@ -7,7 +7,7 @@ export const authController = {
   register: async function (req, res) {
     try {
       const { username, email, password } = req.body;
-      const user = await authService.registerUser(username, email, password);
+      const user = await authService.compareUserRegister(username, email, password);
 
       return res.status(201).json({
         status: 'Success',
@@ -26,7 +26,7 @@ export const authController = {
   login: async function (req, res) {
     try {
       const { email, password } = req.body;
-      const user = await authService.loginUser(email, password);
+      const user = await authService.findUserToLogin(email, password);
 
       const token = await createAccessToken({ id: user._id });
       res.cookie('token', token);
