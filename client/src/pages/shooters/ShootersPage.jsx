@@ -1,11 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useShooter } from '../../context/ShootersContext';
 import ShooterCard from '../../components/ShooterCard';
 import Layout from '../../components/Layout';
 import { Link } from 'react-router-dom';
 
 const ShootersPage = () => {
-  const { getShooters, shooters } = useShooter();
+  let { getShooters, shooters } = useShooter();
+
+  const [search, setSearch] = useState('');
+
+  const results = !search ? shooters : shooters.filter((dato) => dato.lastName.toLowerCase().includes(search.toLocaleLowerCase()));
 
   useEffect(() => {
     getShooters();
@@ -16,7 +20,6 @@ const ShootersPage = () => {
     <Layout>
       <section className="dashboard-section">
         <h1>Shooter Section</h1>
-
         <article>
           <div>
             <Link to={'/shooters/new'} className="add-shooter-btn">
@@ -26,13 +29,16 @@ const ShootersPage = () => {
               </svg>
             </Link>
           </div>
+          <div className='infield'>
+            <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search by last name" />
+          </div>
           <div className="mt-4">
             {shooters.length === 0 ? (
-              <div className='flex justify-center'>
+              <div className="flex justify-center">
                 <h2>No Shooters</h2>
               </div>
             ) : (
-              shooters.map((shooter) => <ShooterCard key={shooter._id} shooter={shooter} />)
+              results.map((shooter) => <ShooterCard key={shooter._id} shooter={shooter} />)
             )}
           </div>
         </article>

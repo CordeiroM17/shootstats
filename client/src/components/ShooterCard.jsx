@@ -22,7 +22,7 @@ const ShooterCard = ({ shooter }) => {
 
   return (
     <div className="shooter-card" key={shooter._id}>
-      <h3>{shooter.firstName}</h3>
+      <h3>{shooter.lastName + " " + shooter.firstName}</h3>
       <div className="flex items-center gap-4">
         <Link to={`/shooter/${shooter._id}`} className="bg-primary-100 text-white p-2 rounded-lg">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

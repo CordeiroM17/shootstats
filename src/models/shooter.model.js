@@ -14,10 +14,8 @@ const schema = new Schema(
       maxlength: 30,
       required: true,
     },
-    age: {
-      type: Number,
-      min: 10,
-      max: 120,
+    birthday: {
+      type: Date,
       required: true,
     },
     practices: {

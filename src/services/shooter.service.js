@@ -24,8 +24,8 @@ class ShooterService {
   }
 
   async createShooter(shooter, userId) {
-    const { firstName, lastName, age } = shooter;
-    const shooterCreated = await ShooterModel.create({ firstName, lastName, age, user: userId });
+    const { firstName, lastName, birthday } = shooter;
+    const shooterCreated = await ShooterModel.create({ firstName, lastName, birthday, user: userId });
 
     return shooterCreated;
   }

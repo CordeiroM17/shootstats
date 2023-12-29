@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { loginRequest, logoutRequest, registerRequest, verifyTokenRequest } from '../api/auth';
+import { getProfileRequest, loginRequest, logoutRequest, registerRequest, verifyTokenRequest } from '../api/auth';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 
@@ -16,9 +16,22 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const getProfile = async () => {
+    try {
+      const res = await getProfileRequest();
+      console.log(res.data.data);
+      setProfile(res.data.data);
+    } catch (error) {
+      console.log(error);
+      const errorThrow = error.response.data.data;
+      setErrors(errorThrow);
+    }
+  };
 
   const signUp = async (userData) => {
     try {
@@ -92,7 +105,7 @@ export const AuthProvider = ({ children }) => {
     checkLogin();
   }, []);
 
-  return <AuthContext.Provider value={{ signUp, signIn, logout, loading, user, isAuthenticated, errors }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ profile, getProfile, signUp, signIn, logout, loading, user, isAuthenticated, errors }}>{children}</AuthContext.Provider>;
 };
 
 AuthProvider.propTypes = {

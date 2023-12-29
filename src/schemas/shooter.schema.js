@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+let actualDate = new Date();
+
 export const shooterSchema = z.object({
   firstName: z
     .string({
@@ -20,18 +22,5 @@ export const shooterSchema = z.object({
     })
     .min(1, {
       message: 'The minimum number of characters is 1',
-    }),
-  age: z
-    .number({
-      required_error: 'Age is required',
-    })
-    .positive({
-      message: 'The number must be positive',
-    })
-    .gte(10, {
-      message: 'The number must be greater than 10',
-    })
-    .lte(100, {
-      message: 'The number must be less than 100',
     }),
 });
